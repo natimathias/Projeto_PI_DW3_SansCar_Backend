@@ -1,0 +1,31 @@
+{
+  "name": "projeto_pi_dw3_sanscar_backend",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "node --watch ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natimathias/Projeto_PI_DW3_SansCar_Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natimathias/Projeto_PI_DW3_SansCar_Backend/issues"
+  },
+  "homepage": "https://github.com/natimathias/Projeto_PI_DW3_SansCar_Backend#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.7",
+    "fastify": "^5.6.1",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.6"
+  }
+}
