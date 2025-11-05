@@ -1,7 +1,7 @@
 import fastify from 'fastify';
 
 const server = fastify({ logger: true });
-const port = 3000;
+const port = 8086;
 
 // server.register(linksRoutes);
 
