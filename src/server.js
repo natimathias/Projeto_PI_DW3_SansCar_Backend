@@ -1,9 +1,10 @@
 import fastify from 'fastify';
+import { clienteRoutes } from './modules/clientes/clientes.routes.js';
 
 const server = fastify({ logger: true });
 const port = 8086;
 
-// server.register(linksRoutes);
+server.register(clienteRoutes);
 
 server.listen({ port }, (error) => {
   if (error) {

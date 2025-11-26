@@ -1,0 +1,65 @@
+@url=http://localhost:8086
+
+### CLIENTES
+
+### Cria um novo cliente
+POST {{url}}/clientes
+Content-Type: application/json
+
+{
+    "nome": "Silvana Silva",
+    "cpf": "98765432100",
+    "telefone": "44987654321",
+    "endereco": "Avenida Central, 456",
+    "email": "silvanasilva1@gmail.com",
+    "senha": "minhaSenha123"
+}
+
+### Busca todos os clientes
+GET {{url}}/clientes
+
+### Busca um cliente específico pelo id
+GET {{url}}/clientes/357c8684-ef54-4572-a5bc-57d03039f323
+
+### Atualiza um cliente específico pelo id
+PUT {{url}}/clientes/398fe6b0-9441-4d53-9fb3-60b90c0d7ad2
+Content-Type: application/json
+
+{
+    "nome": "João Martins",
+    "cpf": "12345678900",
+    "telefone": "44912345678",
+    "endereco": "Rua das Flores, 321",
+    "email": "joaomartins@gmail.com",
+    "senha": "senhaSegura123"
+}
+
+### Deleta um cliente específico pelo id
+DELETE {{url}}/clientes/69adbbb8-22c0-4d10-9a11-fea93d8a9d65
+
+### CARROS
+
+### Cria um novo carro
+POST {{url}}/carros
+Content-Type: application/json
+
+{
+ 
+}
+
+### Busca todos os carros
+GET {{url}}/carros
+
+### Busca um carro específico pelo id
+GET {{url}}/carros/
+
+### Atualiza um carro específico pelo id
+PUT {{url}}/carros/
+Content-Type: application/json
+
+{
+    
+}
+
+### Deleta um carro específico pelo id
+DELETE {{url}}/carros/
