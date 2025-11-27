@@ -1,4 +1,4 @@
-import { ClienteController } from "./clientes.controller.js";
+import { ClienteController } from "./clientes.controller.js"
 
 export async function clienteRoutes(fastify) {
     fastify.post("/clientes", ClienteController.criarCliente);

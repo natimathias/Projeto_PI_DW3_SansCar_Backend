@@ -12,9 +12,7 @@ Content-Type: application/json
     "telefone": "44996060606",
     "endereco": "Estrada Tempestade, 2507",
     "email": "ze.trovao105@gmail.com",
-    "senha": "senhaZe105"
-
-   
+    "senha": "senhaZe105"  
 }
 
 ### Busca todos os clientes
@@ -38,6 +36,70 @@ Content-Type: application/json
 
 ### Deleta um cliente específico pelo id
 DELETE {{url}}/clientes/9eb6ec56-53b6-40eb-8fbe-e26a5febc2d7
+
+
+### FUNCIONÁRIOS
+### Cria um novo funcionario
+POST {{url}}/funcionarios
+Content-Type: application/json
+
+{
+    "nome": "Fabiana da Silva",
+    "cpf": "98745621348",
+    "cargo": "Atendente",
+    "login": "fabi14@gmail.com",
+    "senha": "senhaFabi14"  
+}
+
+### Busca todos os funcionarios
+GET {{url}}/funcionarios
+
+### Busca um funcionario específico pelo id
+GET {{url}}/funcionarios/ead3b58c-eecc-477e-b009-555c7507fb6f
+
+### Atualiza um funcionario específico pelo id
+PUT {{url}}/funcionarios/ead3b58c-eecc-477e-b009-555c7507fb6f
+Content-Type: application/json
+
+{
+    "nome": "Luciana Pereira",
+    "cpf": "12365478955",
+    "cargo": "Gerente",
+    "login": "pereiraluciana23@gmail.com",
+    "senha": "senhaSegura123"
+}
+
+### Deleta um funcionario específico pelo id
+DELETE {{url}}/funcionarios/ead3b58c-eecc-477e-b009-555c7507fb6f
+
+
+### CATEGORIAS DE CARROS
+### Cria uma nova categoria de carro
+POST {{url}}/categorias
+Content-Type: application/json
+
+{
+    "nome_categoria": "SUV",
+    "valor_diaria": 300.00
+}
+
+### Busca todos os categorias
+GET {{url}}/categorias
+
+### Busca um categoria específico pelo id
+GET {{url}}/categorias/54450873-8284-4609-a8c0-fd52f242db02
+
+### Atualiza um categoria específico pelo id
+PUT {{url}}/categorias/54450873-8284-4609-a8c0-fd52f242db02
+Content-Type: application/json
+
+{
+    "nome_categoria": "Econômico",
+    "valor_diaria": 150.00
+}
+
+### Deleta um categoria específico pelo id
+DELETE {{url}}/categorias/de45ba4b-6ede-404d-beff-f5f790e484a2
 
 ### CARROS
 

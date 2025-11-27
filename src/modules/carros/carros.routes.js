@@ -1,4 +1,4 @@
-import { CarroController } from "./carros.controller";
+import { CarroController } from "./carros.controller.js";
 
 export async function carroRoutes(fastify) {
     fastify.post("/carros", CarroController.criarCarro);
