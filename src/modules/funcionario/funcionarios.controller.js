@@ -10,6 +10,15 @@ export class FuncionarioController {
         }
     }
 
+    static async login(req, reply) {
+        try{
+            const token = await FuncionarioService.login(req.body);
+            reply.code(200).send(token);
+        } catch (error) {
+            reply.code(401).send({ error: error.message });
+        }
+    }
+
     static async listarFuncionarios(req, reply) {
         try {
             const funcionarios = await FuncionarioService.listarFuncionarios();

@@ -17,6 +17,12 @@ export class FuncionarioRepository {
         return funcionario[0];
     }
 
+    static async buscarPorLogin(login) {
+        const funcionario = await db.select().from(Funcionario).where(eq(Funcionario.login, login));
+
+        return funcionario[0];
+    }
+
     static async atualizarFuncionario(id_funcionario, data) {
         return await db.update(Funcionario).set(data).where(eq(Funcionario.id_funcionario, id_funcionario)).returning();
     }

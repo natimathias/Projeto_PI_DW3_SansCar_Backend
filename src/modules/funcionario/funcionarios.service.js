@@ -1,8 +1,18 @@
-import { hashSenha } from "../../utils/hash.js";
+import { compararSenha, hashSenha } from "../../utils/hash.js";
 import { FuncionarioRepository } from "./funcionarios.repository.js";
+import jwt from "jsonwebtoken";
 
 export class FuncionarioService {
     static async criarFuncionario(data) {
+        if(!data.nome || !data.cpf || !data.cargo || !data.login || !data.senha) {
+            throw new Error("Todos os campos são obrigatórios!");
+        }
+
+        const existeLogin = await FuncionarioRepository.buscarPorLogin(data.login);
+        if (existeLogin) {
+            throw new Error("Esse login já existe!");
+        }
+
         const senhaHash = await hashSenha(data.senha);
 
         const novoFuncionario = await FuncionarioRepository.criarFuncionario({
@@ -16,6 +26,28 @@ export class FuncionarioService {
         return novoFuncionario[0];
     }
 
+    static async login(data) {
+        const funcionario = await FuncionarioRepository.buscarPorLogin(data.login);
+
+        if(!funcionario) {
+            throw new Error("Login inválido!");
+        }
+
+        const confereSenha = await compararSenha(data.senha, funcionario.senha);
+
+        if(!confereSenha) {
+            throw new Error("Senha inválida!");
+        }
+
+        const token = jwt.sing({
+            id_funcionario: funcionario.id_funcionario,
+            nome: funcionario.nome,
+            cargo: funcionario.cargo,
+        }, process.env.JWT_SECRET, { expiresIn: '5h' });
+
+        return { token };
+    }
+    
     static async listarFuncionarios() {
         return await FuncionarioRepository.listarFuncionarios();
     }
@@ -40,4 +72,3 @@ export class FuncionarioService {
         return await FuncionarioRepository.deletarFuncionario(id_funcionario);
     }
 }
-

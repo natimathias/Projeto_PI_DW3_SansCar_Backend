@@ -2,13 +2,20 @@ import { CarroRepository } from "./carros.repository.js";
 
 export class CarroService {
     static async criarCarro(data) {
-        if (!data.placa || !data.modelo || !data.ano || !data.cor ) {
-            throw new Error("Placa, modelo, ano e cor são obrigatórios.");
+        if (!data.id_categoria || !data.placa || !data.modelo ) {
+            throw new Error("Categoria, placa e modelo são obrigatórios.");
         }
 
-        data.status = data.status ?? 'disponivel';
-
-        const novoCarro = await CarroRepository.criarCarro(data);
+        const novoCarro = await CarroRepository.criarCarro({
+            id_categoria: data.id_categoria,
+            imagem_carro: data.imagem_carro?.trim() ? data.imagem: null,
+            placa: data.placa,
+            modelo: data.modelo,
+            ano: data.ano,
+            cor: data.cor,
+            status: data.status ?? "disponível", 
+            quilometragem_atual: data.quilometragem_atual ?? 0
+        });
         return novoCarro[0];
     }
 
