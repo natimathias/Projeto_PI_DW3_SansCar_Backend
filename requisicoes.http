@@ -233,3 +233,35 @@ Content-Type: application/json
 
 ### Deleta uma forma de pagamento específica pelo id
 DELETE {{url}}/formas_pagamento/546f2ba5-2b1c-4b7b-ba48-daaba2ca4d3f
+
+### PAGAMENTO
+### Cria um novo pagamento
+POST {{url}}/pagamento
+Content-Type: application/json
+
+{
+    "id_locacao": "e12a9e17-9b26-4bc1-91d0-1621e5725775",
+    "id_forma_pagamento": "f3040535-f2c1-4b59-9468-195e1e3ddc49",
+    "valor": 350.00,
+    "status": "pendente"
+}
+
+### Busca todas os pagamento
+GET {{url}}/pagamento
+
+### Busca um pagamento específico pelo id
+GET {{url}}/pagamento/62db74cf-a84e-413a-9116-ea3ad31632df
+
+### Atualiza um pagamento específico pelo id
+PUT {{url}}/pagamento/62db74cf-a84e-413a-9116-ea3ad31632df
+Content-Type: application/json
+
+{
+   "id_locacao": "e12a9e17-9b26-4bc1-91d0-1621e5725775",
+    "id_forma_pagamento": "f3040535-f2c1-4b59-9468-195e1e3ddc49",
+    "valor": 400.00,
+    "status": "pendente"  
+}
+
+### Deleta um pagamento específica pelo id
+DELETE {{url}}/pagamento/62db74cf-a84e-413a-9116-ea3ad31632df

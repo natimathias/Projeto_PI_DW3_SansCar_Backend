@@ -1,6 +1,6 @@
-import { FormasPagamentoRepository } from "../formasPagamento/formasPagamento.repository";
-import { LocacaoRepository } from "../locacoes/locacoes.repository"
-import { PagamentoRepository } from "./pagamentos.repository";
+import { FormasPagamentoRepository } from "../formasPagamento/formasPagamento.repository.js";
+import { LocacaoRepository } from "../locacoes/locacoes.repository.js"
+import { PagamentoRepository } from "./pagamentos.repository.js";
 
 export class PagamentoService {
     static async criarPagamento(data) {
@@ -17,9 +17,9 @@ export class PagamentoService {
         }
 
         const novoPagamento = await PagamentoRepository.criarPagamento({
-            id_locacao,
-            id_forma_pagamento,
-            valor,
+            id_locacao: data.id_locacao,
+            id_forma_pagamento: data.id_forma_pagamento,
+            valor: data.valor,
             status: "pendente"
         });
 
@@ -27,7 +27,7 @@ export class PagamentoService {
     }
 
     static async listarPagamento() {
-        return await PagamentoRepository.listarPagamento();
+        return await PagamentoRepository.listarPagamentos();
     }
 
     static async buscarPorId(id_pagamento) {
