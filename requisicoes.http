@@ -45,11 +45,11 @@ POST {{url}}/funcionarios
 Content-Type: application/json
 
 {
-    "nome": "Fabiana da Silva",
-    "cpf": "98745621348",
-    "cargo": "Atendente",
-    "login": "fabi14@gmail.com",
-    "senha": "senhaFabi14"  
+    "nome": "Fábio de Almeida",
+    "cpf": "78945612398",
+    "cargo": "Motorista",
+    "login": "fabio.almeida@locadora.com",
+    "senha": "FabioMoto2025"
 }
 
 ### Login do funcionário
