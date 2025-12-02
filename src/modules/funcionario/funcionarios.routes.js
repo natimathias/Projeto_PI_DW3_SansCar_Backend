@@ -1,7 +1,7 @@
 import { authMiddleware } from "../../middlewrares/auth.js";
 import { FuncionarioController } from "./funcionarios.controller.js";
 
-export async function FuncionarioRoutes(fastify) {
+export async function funcionarioRoutes(fastify) {
     fastify.post('/login', FuncionarioController.login);
     fastify.post('/funcionarios', FuncionarioController.criarFuncionario);
     fastify.get('/funcionarios', { preHandler: authMiddleware }, FuncionarioController.listarFuncionarios);

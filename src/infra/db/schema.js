@@ -3,6 +3,7 @@ import { pgTable, uuid, text, numeric, varchar, integer, pgEnum, timestamp } fro
 export const statusCarrosEnum = pgEnum('status_carro', ['disponivel', 'alugado', 'manutencao']);
 export const statusPagamentoEnum = pgEnum('status_pagamento', ['pendente', 'confirmado', 'cancelado']);
 export const statusMultaEnum = pgEnum('status_multa', ['pendente', 'pago']);
+export const tipoCartaoEnum = pgEnum('tipo_cartao', ['crédito', 'debito']);
 
 export const Cliente = pgTable('cliente', {
   id_cliente: uuid('id_cliente').defaultRandom().primaryKey(),
@@ -43,9 +44,17 @@ export const Funcionario = pgTable('funcionario', {
 
 export const FormasPagamento = pgTable('formas_pagamento', {
   id_forma_pagamento: uuid('id_forma_pagamento').defaultRandom().primaryKey(),
-  cartao: varchar('cartao', {length: 16}),
-  pix: varchar('pix', {length: 50}),
-  boleto: varchar('boleto', {length: 50}),
+  tipo_pagamento: text('tipo_pagamento').notNull(),
+
+  numero_cartao: varchar('numero_cartao', { length: 16 }),
+  nome_titular: text('nome_titular'),
+  validade: varchar('validade', { length: 5 }), 
+  cvv: varchar('cvv', { length: 3 }),
+  tipo_cartao: tipoCartaoEnum('tipo_cartao'), 
+
+  pix_chave: text('pix_chave'),
+
+  codigo_boleto: text('codigo_boleto'),
 });
 
 export const Locacao = pgTable('locacao', {

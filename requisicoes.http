@@ -1,4 +1,5 @@
 @url=http://localhost:8086
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9mdW5jaW9uYXJpbyI6ImQ1NzA0MDQxLWExZGItNDZlNy05MGRlLTYwYjhkZjdlMGEyOSIsIm5vbWUiOiJGYWJpYW5hIGRhIFNpbHZhIiwiY2FyZ28iOiJBdGVuZGVudGUiLCJpYXQiOjE3NjQ2MTEwMTUsImV4cCI6MTc2NDYyOTAxNX0.UQj2ssNPaOV1lHTDguO0c5ZAg1FomvSMWgQoJnWbQRk
 
 ### CLIENTES
 
@@ -51,14 +52,26 @@ Content-Type: application/json
     "senha": "senhaFabi14"  
 }
 
+### Login do funcionário
+POST {{url}}/login
+Content-Type: application/json
+
+{
+    "login": "fabi14@gmail.com",
+    "senha": "senhaFabi14"
+}
+
 ### Busca todos os funcionarios
 GET {{url}}/funcionarios
+Authorization: Bearer {{token}}
 
 ### Busca um funcionario específico pelo id
 GET {{url}}/funcionarios/ead3b58c-eecc-477e-b009-555c7507fb6f
+Authorization: Bearer {{token}}
 
 ### Atualiza um funcionario específico pelo id
 PUT {{url}}/funcionarios/ead3b58c-eecc-477e-b009-555c7507fb6f
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -71,6 +84,7 @@ Content-Type: application/json
 
 ### Deleta um funcionario específico pelo id
 DELETE {{url}}/funcionarios/ead3b58c-eecc-477e-b009-555c7507fb6f
+Authorization: Bearer {{token}}
 
 
 ### CATEGORIAS DE CARROS
@@ -139,13 +153,17 @@ DELETE {{url}}/carros/
 
 ### Cria uma nova locação
 POST {{url}}/locacoes
+Content-Type: application/json
+
 {
-    "id_cliente": "357c8684-ef54-4572-a5bc-57d03039f323",
+    "id_cliente": "e2da5ec8-6548-4f54-9f15-475a8208697f",
     "id_carro": "9875b461-11d1-4c63-838b-67cbe71a1079",
-    "id_funcionario": "ead3b58c-eecc-477e-b009-555c7507fb6f",
+    "id_funcionario": "d5704041-a1db-46e7-90de-60b8df7e0a29",
     "data_retirada": "2025-11-30T10:00:00.000Z",
     "data_devolucao_prevista": "2025-12-02T10:00:00.000Z",
+    "data_devolucao_real": "2025-12-02T09:30:00.000Z",
     "valor_unitario": 200.00,
+    "quilometragem_devolucao": 122000,
     "descricao": "Cliente retirou o carro sem observações."
 }
 
@@ -165,3 +183,53 @@ Content-Type: application/json
 
 ### Deleta uma locação específica pelo id
 DELETE {{url}}/locacoes/
+
+### FORMAS DE PAGAMENTO
+### Cria uma nova forma de pagamento
+POST {{url}}/formas_pagamento
+Content-Type: application/json
+
+{
+    "tipo_pagamento": "cartao",
+    "tipo_cartao": "crédito",
+    "numero_cartao": "4111111111111111",
+    "nome_titular": "Maria Oliveira",
+    "validade": "30-12",
+    "cvv": "123"
+}
+
+### Cria uma nova forma de pagamento PIX
+POST {{url}}/formas_pagamento
+Content-Type: application/json
+
+{
+  "tipo_pagamento": "pix",
+  "pix_chave": "maria.oliveira@gmail.com"
+}
+
+### Cria uma nova forma de pagamento boleto
+POST {{url}}/formas_pagamento
+Content-Type: application/json
+
+{
+  "tipo_pagamento": "boleto",
+  "codigo_boleto": "237918273817283712893712893712"
+}
+
+
+### Busca todas as formas de pagamento
+GET {{url}}/formas_pagamento
+
+### Busca uma forma de pagamento específica pelo id
+GET {{url}}/formas_pagamento/
+
+### Atualiza uma forma de pagamento específica pelo id
+PUT {{url}}/formas_pagamento/
+Content-Type: application/json
+
+{
+    
+}
+
+### Deleta uma forma de pagamento específica pelo id
+DELETE {{url}}/formas_pagamento/546f2ba5-2b1c-4b7b-ba48-daaba2ca4d3f

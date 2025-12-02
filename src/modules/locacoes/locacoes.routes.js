@@ -1,7 +1,6 @@
-import { LocacaoController } from "./locacoes.controller";
+import { LocacaoController } from "./locacoes.controller.js";
 
-export async function LocacaoRoutes(fastify) {
-
+export async function locacaoRoutes(fastify) {
     fastify.post("/locacoes", LocacaoController.criarLocacao);
     fastify.get("/locacoes", LocacaoController.listarLocacoes);
     fastify.get("/locacoes/:id_locacao", LocacaoController.buscarPorId);

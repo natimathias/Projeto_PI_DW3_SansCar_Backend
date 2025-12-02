@@ -23,7 +23,7 @@ export class CategoriaController {
         try {
             const categoria = await CategoriaService.buscarPorId(req.params.id_categoria);
             if (!categoria) {
-                return reply.code(404).send({ error: "Categoria não encontrado!" });
+                return reply.code(404).send({ error: "Categoria não encontrada!" });
             }
             reply.code(200).send(categoria);
         } catch (error) {

@@ -39,7 +39,7 @@ export class FuncionarioService {
             throw new Error("Senha inválida!");
         }
 
-        const token = jwt.sing({
+        const token = jwt.sign({
             id_funcionario: funcionario.id_funcionario,
             nome: funcionario.nome,
             cargo: funcionario.cargo,

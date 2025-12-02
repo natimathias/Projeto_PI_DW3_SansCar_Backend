@@ -32,7 +32,7 @@ export class FuncionarioController {
         try {
             const funcionario = await FuncionarioService.buscarPorId(req.params.id_funcionario);
             if (!funcionario) {
-                return reply.code(404).send({ error: "Funcionario não encontrado!" });
+                return reply.code(404).send({ error: "Funcionário não encontrado!" });
             }
             reply.code(200).send(funcionario);
         } catch (error) {
@@ -52,7 +52,7 @@ export class FuncionarioController {
     static async deletarFuncionario(req, reply) {
         try {
             await FuncionarioService.deletarFuncionario(req.params.id_funcionario);
-            reply.code(200).send({ message: "Funcionario deletado com sucesso!" });
+            reply.code(200).send({ message: "Funcionário deletado com sucesso!" });
         } catch (error) {
             reply.code(400).send({ error: error.message });
         }

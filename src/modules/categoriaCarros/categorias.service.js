@@ -3,7 +3,7 @@ import { CategoriaRepository } from "./categorias.repository.js";
 export class CategoriaService {
     static async criarCategoria(data) {
         if (!data.nome_categoria || !data.valor_diaria ) {
-            throw new Error("Nome_categoria e valor_diária são obrigatórios.");
+            throw new Error("Nome da categoria e o valor da diária são obrigatórios.");
         }
 
         const novaCategoria = await CategoriaRepository.criarCategoria({

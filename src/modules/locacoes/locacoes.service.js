@@ -5,6 +5,13 @@ import { LocacaoRepository } from "./locacoes.repository.js";
 
 export class LocacaoService {
     static async criarLocacao(data) {
+
+        data.data_retirada = new Date(data.data_retirada);
+        data.data_devolucao_prevista = new Date(data.data_devolucao_prevista);
+
+        if (data.data_devolucao_real) {
+            data.data_devolucao_real = new Date(data.data_devolucao_real);
+        }
         
         const { id_cliente, id_carro, id_funcionario } = data;
 
