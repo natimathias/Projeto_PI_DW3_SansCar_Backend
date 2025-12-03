@@ -1,5 +1,5 @@
 import { hashSenha } from "../../utils/hash.js";
-import { enviarEmail } from "../../utils/email.js";
+import {enviarEmail} from "../../utils/email.js";
 import { ClienteRepository } from "./clientes.repository.js";
 
 export class ClienteService {

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_ADDRESS,
@@ -14,31 +14,22 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-var mailOptions = {
-  from: `"SansCar" <${process.env.EMAIL_USER}>`,
-  to: '',
-  subject: '',
-  text: ''
-};
-
-let enviarEmail = function(emailDestino, assunto, mensagem){
+export async function enviarEmail(emailDestino, assunto, mensagem) {
   if (!emailDestino || emailDestino.trim() === '') {
     console.error("Nenhum destinatário definido.");
     return;
   }
 
-  mailOptions.to = emailDestino;
-  mailOptions.subject = assunto;
-  mailOptions.text = mensagem;
+  try {
+    await transporter.sendMail({
+      from: `"SansCar" <${process.env.EMAIL_ADDRESS}>`,
+      to: emailDestino,
+      subject: assunto,
+      html: mensagem
+    });
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log("Erro ao enviar e-mail:", error);
-    } else {
-      console.log('Email enviado com sucesso:', info.response);
-    }
-  });
+    console.log("Email enviado com sucesso!");
+  } catch (error) {
+    console.error("Erro ao enviar e-mail:", error);
+  }
 }
-
-
-module.exports = enviarEmail;
