@@ -1,4 +1,4 @@
-import ApiExternaService from "../../services/apiExterna.service.js";
+import ApiExternaService from "./apiExterna.service.js";
 
 class ApiExternaController {
 
