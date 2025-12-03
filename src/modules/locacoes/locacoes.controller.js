@@ -46,10 +46,24 @@ export class LocacaoController {
         }
     }
 
-    static async deletarLocacao(req, reply) {
+    static async cancelarLocacao(req, reply) {
         try {
-            await LocacaoService.deletarLocacao(req.params.id_locacao);
-            reply.code(200).send({ message: "Locação deletada com sucesso!" });
+            const cancelada = await LocacaoService.cancelarLocacao(req.params.id_locacao);
+
+            reply.code(200).send(cancelada);
+        } catch (error) {
+            reply.code(400).send({ error: error.message });
+        }
+    }
+
+    static async finalizarLocacao(req, reply) {
+        try {
+            const resultado = await LocacaoService.finalizarLocacao(
+                req.params.id_locacao,
+                req.body
+            );
+
+            reply.code(200).send(resultado);
         } catch (error) {
             reply.code(400).send({ error: error.message });
         }

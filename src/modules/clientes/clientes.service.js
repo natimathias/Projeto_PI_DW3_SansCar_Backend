@@ -1,4 +1,5 @@
 import { hashSenha } from "../../utils/hash.js";
+import { enviarEmail } from "../../utils/email.js";
 import { ClienteRepository } from "./clientes.repository.js";
 
 export class ClienteService {
@@ -13,6 +14,12 @@ export class ClienteService {
             email: data.email,
             senha: senhaHash,
         })
+
+          await enviarEmail(novoCliente[0].email,
+            "Bem-vindo à SansCar!",
+            `<h2>Olá, ${novoCliente[0].nome}!</h2>
+             <p>Seu cadastro foi realizado com sucesso.</p>`
+        );
 
         return novoCliente[0];
     }

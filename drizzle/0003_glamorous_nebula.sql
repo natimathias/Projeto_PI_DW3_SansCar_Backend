@@ -1,0 +1,1 @@
+ALTER TABLE "locacao" ALTER COLUMN "status_locacao" SET DEFAULT 'ativa';

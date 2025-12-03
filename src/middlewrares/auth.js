@@ -17,3 +17,12 @@ export async function authMiddleware(req, reply, done) {
         return reply.code(401).send({error : "Token inválido"});
     }
 }
+
+export function verificarCargo(cargosPermitidos) {
+    return (req, reply, done) => {
+        if (!cargosPermitidos.includes(req.usuario.cargo)) {
+            return reply.code(403).send({ error: "Acesso negado." });
+        }
+        done();
+    };
+}

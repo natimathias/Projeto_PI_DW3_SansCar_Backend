@@ -5,6 +5,6 @@ export async function locacaoRoutes(fastify) {
     fastify.get("/locacoes", LocacaoController.listarLocacoes);
     fastify.get("/locacoes/:id_locacao", LocacaoController.buscarPorId);
     fastify.put("/locacoes/:id_locacao", LocacaoController.atualizarLocacao);
-    fastify.delete("/locacoes/:id_locacao", LocacaoController.deletarLocacao);
-
+    fastify.put("/locacoes/:id_locacao/cancelar", LocacaoController.cancelarLocacao);
+    fastify.put("/locacoes/:id_locacao/finalizar", LocacaoController.finalizarLocacao);
 }

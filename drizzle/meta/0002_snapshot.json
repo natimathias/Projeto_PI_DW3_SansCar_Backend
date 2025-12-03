@@ -1,0 +1,612 @@
+{
+  "id": "2e96ea2f-3f7c-4872-b11d-22dfb843b7a4",
+  "prevId": "c2fcdbe1-7b40-490f-8c7e-3b82f2f1cc92",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.carros": {
+      "name": "carros",
+      "schema": "",
+      "columns": {
+        "id_carro": {
+          "name": "id_carro",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "id_categoria": {
+          "name": "id_categoria",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "imagem_carro": {
+          "name": "imagem_carro",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "placa": {
+          "name": "placa",
+          "type": "varchar(8)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "modelo": {
+          "name": "modelo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ano": {
+          "name": "ano",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cor": {
+          "name": "cor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "status_carro",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quilometragem_atual": {
+          "name": "quilometragem_atual",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "carros_id_categoria_categoria_carro_id_categoria_fk": {
+          "name": "carros_id_categoria_categoria_carro_id_categoria_fk",
+          "tableFrom": "carros",
+          "tableTo": "categoria_carro",
+          "columnsFrom": [
+            "id_categoria"
+          ],
+          "columnsTo": [
+            "id_categoria"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.categoria_carro": {
+      "name": "categoria_carro",
+      "schema": "",
+      "columns": {
+        "id_categoria": {
+          "name": "id_categoria",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nome_categoria": {
+          "name": "nome_categoria",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor_diaria": {
+          "name": "valor_diaria",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.cliente": {
+      "name": "cliente",
+      "schema": "",
+      "columns": {
+        "id_cliente": {
+          "name": "id_cliente",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cpf": {
+          "name": "cpf",
+          "type": "varchar(14)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "telefone": {
+          "name": "telefone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "endereco": {
+          "name": "endereco",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senha": {
+          "name": "senha",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.formas_pagamento": {
+      "name": "formas_pagamento",
+      "schema": "",
+      "columns": {
+        "id_forma_pagamento": {
+          "name": "id_forma_pagamento",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tipo_pagamento": {
+          "name": "tipo_pagamento",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numero_cartao": {
+          "name": "numero_cartao",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nome_titular": {
+          "name": "nome_titular",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "validade": {
+          "name": "validade",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cvv": {
+          "name": "cvv",
+          "type": "varchar(3)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tipo_cartao": {
+          "name": "tipo_cartao",
+          "type": "tipo_cartao",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pix_chave": {
+          "name": "pix_chave",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "codigo_boleto": {
+          "name": "codigo_boleto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.funcionario": {
+      "name": "funcionario",
+      "schema": "",
+      "columns": {
+        "id_funcionario": {
+          "name": "id_funcionario",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cpf": {
+          "name": "cpf",
+          "type": "varchar(14)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cargo": {
+          "name": "cargo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "login": {
+          "name": "login",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senha": {
+          "name": "senha",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.locacao": {
+      "name": "locacao",
+      "schema": "",
+      "columns": {
+        "id_locacao": {
+          "name": "id_locacao",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "id_funcionario": {
+          "name": "id_funcionario",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_carro": {
+          "name": "id_carro",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_cliente": {
+          "name": "id_cliente",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_retirada": {
+          "name": "data_retirada",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_devolucao_prevista": {
+          "name": "data_devolucao_prevista",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_devolucao_real": {
+          "name": "data_devolucao_real",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valor_unitario": {
+          "name": "valor_unitario",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quilometragem_atual": {
+          "name": "quilometragem_atual",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quilometragem_devolucao": {
+          "name": "quilometragem_devolucao",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "descricao": {
+          "name": "descricao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status_locacao": {
+          "name": "status_locacao",
+          "type": "status_locacao",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "locacao_id_funcionario_funcionario_id_funcionario_fk": {
+          "name": "locacao_id_funcionario_funcionario_id_funcionario_fk",
+          "tableFrom": "locacao",
+          "tableTo": "funcionario",
+          "columnsFrom": [
+            "id_funcionario"
+          ],
+          "columnsTo": [
+            "id_funcionario"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "locacao_id_carro_carros_id_carro_fk": {
+          "name": "locacao_id_carro_carros_id_carro_fk",
+          "tableFrom": "locacao",
+          "tableTo": "carros",
+          "columnsFrom": [
+            "id_carro"
+          ],
+          "columnsTo": [
+            "id_carro"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "locacao_id_cliente_cliente_id_cliente_fk": {
+          "name": "locacao_id_cliente_cliente_id_cliente_fk",
+          "tableFrom": "locacao",
+          "tableTo": "cliente",
+          "columnsFrom": [
+            "id_cliente"
+          ],
+          "columnsTo": [
+            "id_cliente"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.multa": {
+      "name": "multa",
+      "schema": "",
+      "columns": {
+        "id_multa": {
+          "name": "id_multa",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "id_locacao": {
+          "name": "id_locacao",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descricao": {
+          "name": "descricao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor": {
+          "name": "valor",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "status_multa",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "multa_id_locacao_locacao_id_locacao_fk": {
+          "name": "multa_id_locacao_locacao_id_locacao_fk",
+          "tableFrom": "multa",
+          "tableTo": "locacao",
+          "columnsFrom": [
+            "id_locacao"
+          ],
+          "columnsTo": [
+            "id_locacao"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pagamento": {
+      "name": "pagamento",
+      "schema": "",
+      "columns": {
+        "id_pagamento": {
+          "name": "id_pagamento",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "id_locacao": {
+          "name": "id_locacao",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_forma_pagamento": {
+          "name": "id_forma_pagamento",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor": {
+          "name": "valor",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "status_pagamento",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "pagamento_id_locacao_locacao_id_locacao_fk": {
+          "name": "pagamento_id_locacao_locacao_id_locacao_fk",
+          "tableFrom": "pagamento",
+          "tableTo": "locacao",
+          "columnsFrom": [
+            "id_locacao"
+          ],
+          "columnsTo": [
+            "id_locacao"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "pagamento_id_forma_pagamento_formas_pagamento_id_forma_pagamento_fk": {
+          "name": "pagamento_id_forma_pagamento_formas_pagamento_id_forma_pagamento_fk",
+          "tableFrom": "pagamento",
+          "tableTo": "formas_pagamento",
+          "columnsFrom": [
+            "id_forma_pagamento"
+          ],
+          "columnsTo": [
+            "id_forma_pagamento"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.status_carro": {
+      "name": "status_carro",
+      "schema": "public",
+      "values": [
+        "disponivel",
+        "alugado",
+        "manutencao"
+      ]
+    },
+    "public.status_locacao": {
+      "name": "status_locacao",
+      "schema": "public",
+      "values": [
+        "ativa",
+        "finalizada",
+        "cancelada"
+      ]
+    },
+    "public.status_multa": {
+      "name": "status_multa",
+      "schema": "public",
+      "values": [
+        "pendente",
+        "pago"
+      ]
+    },
+    "public.status_pagamento": {
+      "name": "status_pagamento",
+      "schema": "public",
+      "values": [
+        "pendente",
+        "confirmado",
+        "cancelado"
+      ]
+    },
+    "public.tipo_cartao": {
+      "name": "tipo_cartao",
+      "schema": "public",
+      "values": [
+        "crédito",
+        "debito"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

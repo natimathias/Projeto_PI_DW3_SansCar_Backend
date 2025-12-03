@@ -124,12 +124,12 @@ Content-Type: application/json
 {
   "id_categoria": "8f0dc1aa-e637-483a-ab78-b6498f14bc32",
   "imagem_carro": "imagem_url_exemplo.jpg",
-  "placa": "ABC1234",
-  "modelo": "Fiat Uno",
-  "ano": 2015,
-  "cor": "Branco",
+  "placa": "VGF3456",
+  "modelo": "Chevrolet Onix",
+  "ano": 2024,
+  "cor": "Chumbo",
   "status": "disponivel",
-  "quilometragem_atual": 120000
+  "quilometragem_atual": 17000
 }
 
 ### Busca todos os carros
@@ -156,14 +156,14 @@ POST {{url}}/locacoes
 Content-Type: application/json
 
 {
-    "id_cliente": "e2da5ec8-6548-4f54-9f15-475a8208697f",
-    "id_carro": "9875b461-11d1-4c63-838b-67cbe71a1079",
+    "id_cliente": "c4e92d0a-9122-4f17-8834-e732fb8c614e",
+    "id_carro": "366ee03d-924b-48d9-a699-c0ccff5a39fa",
     "id_funcionario": "d5704041-a1db-46e7-90de-60b8df7e0a29",
     "data_retirada": "2025-11-30T10:00:00.000Z",
-    "data_devolucao_prevista": "2025-12-02T10:00:00.000Z",
-    "data_devolucao_real": "2025-12-02T09:30:00.000Z",
+    "data_devolucao_prevista": "2025-11-28T10:00:00.000Z",
+    "data_devolucao_real": "2025-12-01T09:30:00.000Z",
     "valor_unitario": 200.00,
-    "quilometragem_devolucao": 122000,
+    "quilometragem_devolucao": 19000,
     "descricao": "Cliente retirou o carro sem observações."
 }
 
@@ -178,11 +178,16 @@ PUT {{url}}/locacoes/
 Content-Type: application/json
 
 {
-    
+    "id_cliente": "c4e92d0a-9122-4f17-8834-e732fb8c614e",
+    "id_carro": "366ee03d-924b-48d9-a699-c0ccff5a39fa",
+    "id_funcionario": "d5704041-a1db-46e7-90de-60b8df7e0a29",
+    "data_retirada": "2025-11-30T10:00:00.000Z",
+    "data_devolucao_prevista": "2025-12-01T10:00:00.000Z",
+    "data_devolucao_real": "2025-12-02T09:30:00.000Z",
+    "valor_unitario": 200.00,
+    "quilometragem_devolucao": 19000,
+    "descricao": "Cliente retirou o carro sem observações."
 }
-
-### Deleta uma locação específica pelo id
-DELETE {{url}}/locacoes/
 
 ### FORMAS DE PAGAMENTO
 ### Cria uma nova forma de pagamento
@@ -257,7 +262,7 @@ PUT {{url}}/pagamento/62db74cf-a84e-413a-9116-ea3ad31632df
 Content-Type: application/json
 
 {
-   "id_locacao": "e12a9e17-9b26-4bc1-91d0-1621e5725775",
+   "id_locacao": "04c85f14-8cf0-4605-ae79-03c4ad4141b5",
     "id_forma_pagamento": "f3040535-f2c1-4b59-9468-195e1e3ddc49",
     "valor": 400.00,
     "status": "pendente"  
@@ -265,3 +270,26 @@ Content-Type: application/json
 
 ### Deleta um pagamento específica pelo id
 DELETE {{url}}/pagamento/62db74cf-a84e-413a-9116-ea3ad31632df
+
+### MULTAS
+### Gera uma multa para uma locação específica
+POST {{url}}/multas/gerar/2b753695-05c1-4173-a16d-16014729c0eb
+Content-Type: application/json
+
+{
+  
+}
+
+### Busca todas as multas
+GET {{url}}/multas/04b21696-29ce-404c-9178-bdbc6391e7ca
+
+### Busca uma multa específica pelo id
+GET {{url}}/multas/04b21696-29ce-404c-9178-bdbc6391e7ca
+
+### Atualiza uma multa específica pelo id
+PUT {{url}}/multas/04b21696-29ce-404c-9178-bdbc6391e7ca
+Content-Type: application/json
+
+
+### Deleta uma multa específica pelo id
+DELETE {{url}}/multas/04b21696-29ce-404c-9178-bdbc6391e7ca

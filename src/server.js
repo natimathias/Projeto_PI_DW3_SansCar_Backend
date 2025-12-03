@@ -6,6 +6,7 @@ import { funcionarioRoutes } from './modules/funcionario/funcionarios.routes.js'
 import { locacaoRoutes } from './modules/locacoes/locacoes.routes.js';
 import { formasPagamentoRoutes } from './modules/formasPagamento/formasPagamento.routes.js';
 import { pagamentoRoutes } from './modules/pagamentos/pagamentos.routes.js';
+import { multaRoutes } from './modules/multas/multas.routes.js';
 
 const server = fastify({ logger: true });
 const port = 8086;
@@ -17,6 +18,7 @@ server.register(funcionarioRoutes);
 server.register(locacaoRoutes);
 server.register(formasPagamentoRoutes);
 server.register(pagamentoRoutes);
+server.register(multaRoutes);
 
 server.listen({ port }, (error) => {
   if (error) {

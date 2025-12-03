@@ -1,6 +1,10 @@
 import { FormasPagamentoRepository } from "../formasPagamento/formasPagamento.repository.js";
 import { LocacaoRepository } from "../locacoes/locacoes.repository.js"
 import { PagamentoRepository } from "./pagamentos.repository.js";
+import { enviarEmail } from "../../utils/email.js";
+import { ClienteRepository } from "../clientes/clientes.repository.js";
+import { CarroRepository } from "../carros/carros.repository.js";
+import { MultaRepository } from "../multas/multas.repository.js";
 
 export class PagamentoService {
     static async criarPagamento(data) {
@@ -34,8 +38,38 @@ export class PagamentoService {
         return await PagamentoRepository.buscarPorId(id_pagamento);
     }
 
-    static async atualizarPagamento(id_pagamento, data) {    
+    static async atualizarPagamento(id_pagamento, data) { 
+        const pagamento = await PagamentoRepository.buscarPorId(id_pagamento);
+
         const atualizado = await PagamentoRepository.atualizarPagamento(id_pagamento, data);
+
+        if (atualizado[0].status === "confirmado") {
+            const locacao = await LocacaoRepository.buscarPorId(atualizado[0].id_locacao);
+            const cliente = await ClienteRepository.buscarPorId(locacao.id_cliente);
+
+            const multasPendentes = await MultaRepository.listarPorLocacao(locacao.id_locacao);
+            if (multasPendentes.some(multa => multa.status === 'pendente')) {
+                throw new Error("Existem multas pendentes para esta locação. O pagamento não pode ser confirmado.");
+            }
+
+            await CarroRepository.atualizarCarro(locacao.id_carro, {
+                status: "disponivel",
+            });
+
+            await LocacaoRepository.atualizarLocacao(locacao.id_locacao, {
+                status: "finalizada",
+                data_devolucao_real: new Date()
+            })
+
+             await enviarEmail(cliente.email,
+            "Pagamento Confirmado - SansCar",
+            `
+                <h2>Pagamento confirmado</h2>
+                <p>Olá, ${cliente.nome}!</p>
+                <p>Seu pagamento de <strong>R$ ${atualizado[0].valor}</strong> foi confirmado.</p>
+                <p>Obrigado por escolher a SansCar!</p>
+            `)
+        }
 
         return atualizado[0];
     }

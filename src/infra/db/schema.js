@@ -4,6 +4,7 @@ export const statusCarrosEnum = pgEnum('status_carro', ['disponivel', 'alugado',
 export const statusPagamentoEnum = pgEnum('status_pagamento', ['pendente', 'confirmado', 'cancelado']);
 export const statusMultaEnum = pgEnum('status_multa', ['pendente', 'pago']);
 export const tipoCartaoEnum = pgEnum('tipo_cartao', ['crédito', 'debito']);
+export const statusLocacaoEnum = pgEnum('status_locacao', ['ativa', 'finalizada', 'cancelada']);
 
 export const Cliente = pgTable('cliente', {
   id_cliente: uuid('id_cliente').defaultRandom().primaryKey(),
@@ -69,6 +70,7 @@ export const Locacao = pgTable('locacao', {
     quilometragem_atual: integer('quilometragem_atual').notNull(),
     quilometragem_devolucao: integer('quilometragem_devolucao'),
     descricao: text('descricao'),
+    status_locacao: statusLocacaoEnum('status_locacao').notNull().default('ativa'),
 });
 
 export const Pagamento = pgTable('pagamento', {

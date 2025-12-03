@@ -20,8 +20,4 @@ export class LocacaoRepository {
     static async atualizarLocacao(id_locacao, data) {
         return await db.update(Locacao).set(data).where(eq(Locacao.id_locacao, id_locacao)).returning();
     }
-
-    static async deletarLocacao(id_locacao) {
-        return await db.delete(Locacao).where(eq(Locacao.id_locacao, id_locacao)).returning();
-    }
 }

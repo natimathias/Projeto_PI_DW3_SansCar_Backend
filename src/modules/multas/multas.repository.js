@@ -11,6 +11,10 @@ export class MultaRepository {
         return await db.select().from(Multa);
     }
 
+      static async listarPorLocacao(id_locacao) {
+        return await db.select().from(Multa).where(eq(Multa.id_locacao, id_locacao));
+    }
+
     static async buscarPorId(id_multa) {
         const multa = await db.select().from(Multa).where(eq(Multa.id_multa, id_multa));
 
