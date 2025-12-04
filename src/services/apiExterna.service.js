@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class ApiExternaService {
+export class ApiExternaService {
 
     async buscarEnderecoPorCep(cep) {
         try {
@@ -21,4 +21,3 @@ class ApiExternaService {
     }
 }
 
-export default new ApiExternaService();

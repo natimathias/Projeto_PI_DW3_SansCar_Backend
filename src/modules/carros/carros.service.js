@@ -8,7 +8,7 @@ export class CarroService {
 
         const novoCarro = await CarroRepository.criarCarro({
             id_categoria: data.id_categoria,
-            imagem_carro: data.imagem_carro?.trim() ? data.imagem: null,
+            imagem_carro: data.imagem_carro?.trim() ? data.imagem_carro: null,
             placa: data.placa,
             modelo: data.modelo,
             ano: data.ano,

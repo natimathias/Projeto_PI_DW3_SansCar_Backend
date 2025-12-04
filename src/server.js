@@ -7,7 +7,7 @@ import { locacaoRoutes } from './modules/locacoes/locacoes.routes.js';
 import { formasPagamentoRoutes } from './modules/formasPagamento/formasPagamento.routes.js';
 import { pagamentoRoutes } from './modules/pagamentos/pagamentos.routes.js';
 import { multaRoutes } from './modules/multas/multas.routes.js';
-import apiExternaRoutes from './modules/apiExterna/apiExterna.routes.js';
+import { apiExternaRoutes } from './services/apiExterna.routes.js'
 
 const server = fastify({ logger: true });
 const port = 8086;
@@ -21,6 +21,7 @@ server.register(formasPagamentoRoutes);
 server.register(pagamentoRoutes);
 server.register(multaRoutes);
 server.register(apiExternaRoutes);
+
 server.listen({ port }, (error) => {
   if (error) {
     console.error("Erro ao iniciar o servidor:", error);

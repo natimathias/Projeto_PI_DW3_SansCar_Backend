@@ -1,6 +1,6 @@
-import ApiExternaService from "./apiExterna.service.js";
+import { ApiExternaService } from "./apiExterna.service.js";
 
-class ApiExternaController {
+export class ApiExternaController {
 
     async cep(request, reply) {
         const { cep } = request.params;
@@ -23,4 +23,3 @@ class ApiExternaController {
     }
 }
 
-export default new ApiExternaController();
