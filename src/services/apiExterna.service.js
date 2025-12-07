@@ -2,7 +2,7 @@ import axios from "axios";
 
 export class ApiExternaService {
 
-    async buscarEnderecoPorCep(cep) {
+    static async buscarEnderecoPorCep(cep) {
         try {
             const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
             return response.data;
@@ -11,7 +11,7 @@ export class ApiExternaService {
         }
     }
 
-    async buscarPrecosCombustiveis() {
+    static async buscarPrecosCombustiveis() {
         try {
             const response = await axios.get("https://brasilapi.com.br/api/combustiveis/v1/");
             return response.data;

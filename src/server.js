@@ -8,9 +8,15 @@ import { formasPagamentoRoutes } from './modules/formasPagamento/formasPagamento
 import { pagamentoRoutes } from './modules/pagamentos/pagamentos.routes.js';
 import { multaRoutes } from './modules/multas/multas.routes.js';
 import { apiExternaRoutes } from './services/apiExterna.routes.js'
+import cors from '@fastify/cors';
 
 const server = fastify({ logger: true });
 const port = 8086;
+
+server.register(cors, {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+});
 
 server.register(clienteRoutes);
 server.register(carroRoutes);

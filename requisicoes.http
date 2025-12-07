@@ -93,8 +93,8 @@ POST {{url}}/categorias
 Content-Type: application/json
 
 {
-    "nome_categoria": "SUV",
-    "valor_diaria": 300.00
+    "nome_categoria": "Picape",
+    "valor_diaria": 900
 }
 
 ### Busca todos os categorias
