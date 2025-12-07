@@ -2,7 +2,7 @@ import { ApiExternaService } from "./apiExterna.service.js";
 
 export class ApiExternaController {
 
-    async cep(request, reply) {
+    static async cep(request, reply) {
         const { cep } = request.params;
 
         try {
@@ -13,7 +13,7 @@ export class ApiExternaController {
         }
     }
 
-    async combustiveis(request, reply) {
+    static async combustiveis(request, reply) {
         try {
             const dados = await ApiExternaService.buscarPrecosCombustiveis();
             return reply.send(dados);
