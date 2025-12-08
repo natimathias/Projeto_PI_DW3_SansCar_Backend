@@ -17,6 +17,11 @@ export class ClienteRepository {
         return cliente[0];
     }
 
+    static async buscarPorEmail(email) {
+        const cliente = await db.select().from(Cliente).where(eq(Cliente.email, email));    
+        return cliente[0];
+    }
+
     static async atualizarCliente(id_cliente, data) {
         // console.log(data);
         return await db.update(Cliente).set(data).where(eq(Cliente.id_cliente, id_cliente)).returning();
