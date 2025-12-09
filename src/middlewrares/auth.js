@@ -12,17 +12,17 @@ export async function authMiddleware(req, reply) {
     try {
         const dadosCodificados = jwt.verify(token, process.env.JWT_SECRET);
         req.usuario = dadosCodificados;
-        done();
+        return;
     } catch (error) {
         return reply.code(401).send({ error: "Token inválido" });
     }
 }
 
-export async function verificarCargo(cargosPermitidos) {
-    return async (req, reply) => {
-        if (!cargosPermitidos.includes(req.usuario.cargo)) {
+export function verificarCargo(cargosPermitidos) {
+    return async function (req, reply) {
+        if (!req.usuario || !cargosPermitidos.includes(req.usuario.cargo)) {
             return reply.code(403).send({ error: "Acesso negado." });
         }
-        done();
+        return;
     };
 }
