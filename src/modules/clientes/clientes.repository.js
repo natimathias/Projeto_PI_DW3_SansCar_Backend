@@ -23,7 +23,6 @@ export class ClienteRepository {
     }
 
     static async atualizarCliente(id_cliente, data) {
-        // console.log(data);
         return await db.update(Cliente).set(data).where(eq(Cliente.id_cliente, id_cliente)).returning();
     }
 

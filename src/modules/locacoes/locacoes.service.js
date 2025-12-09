@@ -4,8 +4,10 @@ import { FuncionarioRepository } from "../funcionario/funcionarios.repository.js
 import { LocacaoRepository } from "./locacoes.repository.js";
 import { enviarEmail } from "../../utils/email.js";
 import { MultaService } from "../multas/multas.service.js";
+import { PagamentoRepository } from "../pagamentos/pagamentos.repository.js";
 
 export class LocacaoService {
+
     static async criarLocacao(data) {
 
         data.data_retirada = new Date(data.data_retirada);
@@ -95,7 +97,6 @@ export class LocacaoService {
                 <h2>Devolução registrada</h2>
                 <p>Olá, ${cliente.nome}!</p>
                 <p>Sua devolução foi registrada no sistema.</p>
-                <p>Obrigado por utilizar a SansCar!</p>
                 `
             );
         }
@@ -104,33 +105,39 @@ export class LocacaoService {
     }
 
     static async cancelarLocacao(id_locacao) {
-        const locacao = await LocacaoRepository.buscarPorId(id_locacao);
 
-        if (!locacao) {
-            throw new Error("Locação não encontrada.");
-        }
+        const locacao = await LocacaoRepository.buscarPorId(id_locacao);
+        if (!locacao) throw new Error("Locação não encontrada.");
 
         if (locacao.status_locacao === "finalizada") {
             throw new Error("Não é possível cancelar uma locação já finalizada.");
+        }
+
+        if (locacao.status_locacao === "cancelada") {
+            throw new Error("Esta locação já está cancelada.");
         }
 
         if (locacao.data_devolucao_real) {
             throw new Error("Não é possível cancelar uma locação já devolvida.");
         }
 
-        const pagamentos = await PagamentoRepository.listarPorLocacao(locacao.id_locacao);
-        const haPagamentoConfirmado = pagamentos.some(p => p.status === "confirmado");
+        if (new Date(locacao.data_retirada) <= new Date()) {
+            throw new Error("A retirada já ocorreu. A locação não pode mais ser cancelada.");
+        }
 
-        if (haPagamentoConfirmado) {
-            throw new Error("Não é possível cancelar pois existe pagamento confirmado.");
+        const pagamentos = await PagamentoRepository.listarPorLocacao(id_locacao);
+        const existePagamentoConfirmado = pagamentos.some(p => p.status === "confirmado");
+
+        if (existePagamentoConfirmado) {
+            throw new Error("Não é possível cancelar pois há pagamento confirmado.");
         }
 
         const cancelada = await LocacaoRepository.atualizarLocacao(id_locacao, {
-            status_locacao: "cancelada"
+            status_locacao: "cancelada",
         });
 
         await CarroRepository.atualizarCarro(locacao.id_carro, {
-            status: "disponivel"
+            status: "disponivel",
         });
 
         const cliente = await ClienteRepository.buscarPorId(locacao.id_cliente);
@@ -139,76 +146,69 @@ export class LocacaoService {
             cliente.email,
             "Locação Cancelada - SansCar",
             `
-        <h2>Locação Cancelada</h2>
-        <p>Olá, ${cliente.nome}.</p>
-        <p>A locação do carro foi cancelada conforme solicitado.</p>
-        <p>Se precisar, nossa equipe está à disposição.</p>
-        `
+            <h2>Locação Cancelada</h2>
+            <p>Olá, ${cliente.nome}.</p>
+            <p>Sua locação foi cancelada com sucesso.</p>
+            `
         );
 
         return cancelada[0];
     }
 
-   static async finalizarLocacao(id_locacao, data) {
 
-    const locacao = await LocacaoRepository.buscarPorId(id_locacao);
-    if (!locacao) throw new Error("Locação não encontrada.");
+    static async finalizarLocacao(id_locacao, data) {
 
-    if (locacao.status_locacao !== "ativa") {
-        throw new Error("Somente locações ativas podem ser finalizadas.");
-    }
+        const locacao = await LocacaoRepository.buscarPorId(id_locacao);
+        if (!locacao) throw new Error("Locação não encontrada.");
 
-    if (!data.data_devolucao_real) {
-        throw new Error("Data de devolução real é obrigatória.");
-    }
-
-    const dataReal = new Date(data.data_devolucao_real);
-    const dataPrevista = new Date(locacao.data_devolucao_prevista);
-
-    if (data.quilometragem_devolucao) {
-        await CarroRepository.atualizarCarro(locacao.id_carro, {
-            quilometragem_atual: data.quilometragem_devolucao,
-            status: "disponivel"
-        });
-    } else {
-        await CarroRepository.atualizarCarro(locacao.id_carro, {
-            status: "disponivel"
-        });
-    }
-
-    let multaGerada = null;
-
-    if (dataReal > dataPrevista) {
-        multaGerada = await MultaService.gerarMulta(id_locacao);
-    }
-
-    const finalizada = await LocacaoRepository.atualizarLocacao(id_locacao, {
-        data_devolucao_real: dataReal,
-        quilometragem_devolucao: data.quilometragem_devolucao,
-        status_locacao: "finalizada"
-    });
-
-    const cliente = await ClienteRepository.buscarPorId(locacao.id_cliente);
-
-    await enviarEmail(
-        cliente.email,
-        "Devolução finalizada - SansCar",
-        `
-        <h2>Devolução registrada</h2>
-        <p>Olá, ${cliente.nome}.</p>
-        ${
-            multaGerada
-                ? `<p><strong>Atenção:</strong> multa gerada por atraso: R$ ${multaGerada.valor}</p>`
-                : `<p>Nenhuma multa foi gerada.</p>`
+        if (locacao.status_locacao !== "ativa") {
+            throw new Error("Somente locações ativas podem ser finalizadas.");
         }
-        <p>Obrigado por utilizar a SansCar!</p>
-        `
-    );
 
-    return {
-        ...finalizada[0],
-        multa: multaGerada || null
-    };
-}
-}
+        if (!data.data_devolucao_real) {
+            throw new Error("Data de devolução real é obrigatória.");
+        }
 
+        const dataReal = new Date(data.data_devolucao_real);
+        const dataPrevista = new Date(locacao.data_devolucao_prevista);
+
+        if (data.quilometragem_devolucao) {
+            await CarroRepository.atualizarCarro(locacao.id_carro, {
+                quilometragem_atual: data.quilometragem_devolucao,
+                status: "disponivel"
+            });
+        } else {
+            await CarroRepository.atualizarCarro(locacao.id_carro, { status: "disponivel" });
+        }
+
+        let multaGerada = null;
+
+        if (dataReal > dataPrevista) {
+            multaGerada = await MultaService.gerarMulta(id_locacao);
+        }
+
+        const finalizada = await LocacaoRepository.atualizarLocacao(id_locacao, {
+            data_devolucao_real: dataReal,
+            quilometragem_devolucao: data.quilometragem_devolucao,
+            status_locacao: "finalizada"
+        });
+
+        const cliente = await ClienteRepository.buscarPorId(locacao.id_cliente);
+
+        await enviarEmail(
+            cliente.email,
+            "Devolução finalizada - SansCar",
+            `
+            <h2>Devolução registrada</h2>
+            <p>Olá, ${cliente.nome}.</p>
+            ${multaGerada ? `<p><strong>Atenção:</strong> multa gerada por atraso: R$ ${multaGerada.valor}</p>` : `<p>Nenhuma multa foi gerada.</p>`}
+            <p>Obrigado por utilizar a SansCar!</p>
+            `
+        );
+
+        return {
+            ...finalizada[0],
+            multa: multaGerada || null
+        };
+    }
+}

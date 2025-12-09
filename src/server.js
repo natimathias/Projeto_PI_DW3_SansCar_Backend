@@ -8,6 +8,8 @@ import { formasPagamentoRoutes } from './modules/formasPagamento/formasPagamento
 import { pagamentoRoutes } from './modules/pagamentos/pagamentos.routes.js';
 import { multaRoutes } from './modules/multas/multas.routes.js';
 import { apiExternaRoutes } from './services/apiExterna.routes.js'
+import { contatoRoutes } from './modules/contato/contato.routes.js';
+import { relatoriosRoutes } from './modules/relatorios/relatorios.routes.js';
 import cors from '@fastify/cors';
 import fastifyJwt from '@fastify/jwt';
 
@@ -32,6 +34,8 @@ server.register(formasPagamentoRoutes);
 server.register(pagamentoRoutes);
 server.register(multaRoutes);
 server.register(apiExternaRoutes);
+server.register(contatoRoutes);
+server.register(relatoriosRoutes);
 
 server.listen({ port }, (error) => {
   if (error) {

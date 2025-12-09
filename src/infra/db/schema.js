@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, numeric, varchar, integer, pgEnum, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, numeric, varchar, integer, pgEnum, timestamp, serial } from "drizzle-orm/pg-core";
 
 export const statusCarrosEnum = pgEnum('status_carro', ['disponivel', 'alugado', 'manutencao']);
 export const statusPagamentoEnum = pgEnum('status_pagamento', ['pendente', 'confirmado', 'cancelado']);
@@ -87,4 +87,13 @@ export const Multa = pgTable('multa', {
     descricao: text('descricao').notNull(),
     valor: numeric('valor', {precision: 10, scale: 2}).notNull(),
     status: statusMultaEnum('status').notNull(),
+});
+
+export const Contato = pgTable("contato", {
+    id_contato: serial("id_contato").primaryKey(),
+    nome: varchar("nome", { length: 100 }).notNull(),
+    email: varchar("email", { length: 150 }).notNull(),
+    assunto: varchar("assunto", { length: 200 }).default("Sem assunto"),
+    mensagem: text("mensagem").notNull(),
+    criado_em: timestamp("criado_em").defaultNow()
 });
