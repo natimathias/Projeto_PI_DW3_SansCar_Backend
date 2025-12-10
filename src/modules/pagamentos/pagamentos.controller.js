@@ -11,13 +11,13 @@ export class PagamentoController {
     }
 
     static async listarPagamentos(req, reply) {
-        try {
-            const pagamento = await PagamentoService.listarPagamento();
-            reply.code(200).send(pagamento);
-        } catch (error) {
-            reply.code(400).send({ error: error.message });
-        }
+    try {
+        const pagamentos = await PagamentoService.listarPagamentos();
+        reply.code(200).send(pagamentos);
+    } catch (error) {
+        reply.code(400).send({ error: error.message });
     }
+}
 
     static async buscarPorId(req, reply) {
         try {

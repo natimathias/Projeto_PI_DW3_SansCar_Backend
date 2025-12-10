@@ -1,4 +1,9 @@
 import fastify from 'fastify';
+import fastifyStatic from "@fastify/static";
+import path from "path";
+import cors from '@fastify/cors';
+import fastifyJwt from '@fastify/jwt';
+
 import { clienteRoutes } from './modules/clientes/clientes.routes.js';
 import { carroRoutes } from './modules/carros/carros.routes.js';
 import { categoriaRoutes } from './modules/categoriaCarros/categorias.routes.js';
@@ -7,11 +12,9 @@ import { locacaoRoutes } from './modules/locacoes/locacoes.routes.js';
 import { formasPagamentoRoutes } from './modules/formasPagamento/formasPagamento.routes.js';
 import { pagamentoRoutes } from './modules/pagamentos/pagamentos.routes.js';
 import { multaRoutes } from './modules/multas/multas.routes.js';
-import { apiExternaRoutes } from './services/apiExterna.routes.js'
+import { apiExternaRoutes } from './services/apiExterna.routes.js';
 import { contatoRoutes } from './modules/contato/contato.routes.js';
 import { relatoriosRoutes } from './modules/relatorios/relatorios.routes.js';
-import cors from '@fastify/cors';
-import fastifyJwt from '@fastify/jwt';
 
 const server = fastify({ logger: true });
 const port = 8086;
@@ -22,8 +25,13 @@ server.register(cors, {
 });
 
 server.register(fastifyJwt, {
-  secret: process.env.JWT_SECRET || 'troque_essa_chave',
-})
+  secret: process.env.JWT_SECRET || 'essa_chave',
+});
+
+// server.register(fastifyStatic, {
+//   root: path.resolve("uploads"),
+//   prefix: "/uploads/",
+// });
 
 server.register(clienteRoutes);
 server.register(carroRoutes);

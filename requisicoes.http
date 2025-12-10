@@ -1,5 +1,5 @@
 @url=http://localhost:8086
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9mdW5jaW9uYXJpbyI6ImQ1NzA0MDQxLWExZGItNDZlNy05MGRlLTYwYjhkZjdlMGEyOSIsIm5vbWUiOiJGYWJpYW5hIGRhIFNpbHZhIiwiY2FyZ28iOiJBdGVuZGVudGUiLCJpYXQiOjE3NjQ2MTEwMTUsImV4cCI6MTc2NDYyOTAxNX0.UQj2ssNPaOV1lHTDguO0c5ZAg1FomvSMWgQoJnWbQRk
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9mdW5jaW9uYXJpbyI6ImQ1NzA0MDQxLWExZGItNDZlNy05MGRlLTYwYjhkZjdlMGEyOSIsIm5vbWUiOiJGYWJpYW5hIGRhIFNpbHZhIiwiY2FyZ28iOiJBdGVuZGVudGUiLCJpYXQiOjE3NjUzNjQ5ODEsImV4cCI6MTc2NTM4Mjk4MX0.O6wZiLqzV2JvRczILqaNjXQU8Ei91OtUJjlty81m-tU
 
 ### CLIENTES
 
@@ -75,11 +75,11 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "nome": "Luciana Pereira",
+    "nome": "Luciana Silva",
     "cpf": "12365478955",
     "cargo": "Gerente",
-    "login": "pereiraluciana23@gmail.com",
-    "senha": "senhaSegura123"
+    "login": "luciana.silva@gmail.com",
+    "senha": "segura2025"
 }
 
 ### Deleta um funcionario específico pelo id
